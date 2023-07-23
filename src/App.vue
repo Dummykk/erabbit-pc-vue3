@@ -1,6 +1,6 @@
 <template>
   <!-- 一级路由 -->
-  <router-link></router-link>
+  <router-view></router-view>
 </template>
 
 <script>
