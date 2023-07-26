@@ -4,12 +4,15 @@
     <li
       v-for="item in list"
       :key="item.id"
-      @mouseenter="show(item)"
+      @mousemove="show(item)"
       @mouseleave="hide(item)"
     >
-      <router-link :to="`/category/${item.id}`" @click="hide(item)">{{
-        item.name
-      }}</router-link>
+      <router-link
+        :class="{ active: $route.params.id === item.id }"
+        :to="`/category/${item.id}`"
+        @click="hide(item), (currentIndex = index)"
+        >{{ item.name }}</router-link
+      >
       <div class="layer" :class="{ show: item.isShow }">
         <ul>
           <li v-for="sub in item.children" :key="sub.id">
@@ -42,6 +45,7 @@ export default {
     const hide = (category) => {
       store.commit('category/hide', category)
     }
+
     return { list, show, hide }
   }
 
@@ -63,6 +67,10 @@ export default {
       display: inline-block;
       height: 32px;
       line-height: 32px;
+      &.active {
+        color: @xtxColor;
+        border-bottom: 1px solid @xtxColor;
+      }
       &:hover {
         color: @xtxColor;
         border-bottom: 1px solid @xtxColor;
@@ -77,7 +85,7 @@ export default {
       width: 1240px;
       height: 0;
       overflow: hidden;
-      z-index: 1;
+      z-index: 100;
       opacity: 0;
       background-color: #fff;
       box-shadow: 0 0 5px #ccc;

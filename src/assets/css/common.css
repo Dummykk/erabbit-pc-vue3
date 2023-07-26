@@ -97,3 +97,17 @@ ul {
 .fade-leave-to {
   opacity: 0;
 }
+.fade-bread-item-enter-from,
+.fade-bread-item-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
+.fade-bread-item-enter-active,
+.fade-bread-item-leave-active {
+  transition: all 0.5s;
+}
+.fade-bread-item-enter-to,
+.fade-bread-item-leave-from {
+  transform: none;
+  opacity: 1;
+}
