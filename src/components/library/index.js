@@ -7,6 +7,7 @@
 // import XtxBread from './xtx-bread.vue'
 // import XtxBreadItem from './xtx-bread-item.vue'
 import defaultImg from '@/assets/images/200.png'
+import Message from './Message'
 
 // 批量注册组件
 /*
@@ -32,6 +33,9 @@ export default {
       app.component(component.name, component)
     })
     defineDirective(app)
+
+    // 如果想挂载全局的属性，能够通过组件实例调用的属性 this.$message
+    app.config.globalProperties.$message = Message
   }
 }
 

@@ -4,22 +4,27 @@
       <ul>
         <template v-if="profile.token">
           <li>
-            <a href="#"
-              ><i class="iconfont icon-user" />{{ profile.account }}</a
-            >
+            <router-link to="/">
+              <i class="iconfont icon-user" />
+              {{ profile.account }}
+            </router-link>
           </li>
-          <li><a href="#">退出登录</a></li>
+          <li>
+            <router-link to="/login" @click="logout">退出登录</router-link>
+          </li>
         </template>
         <template v-else>
-          <li><a href="#">请先登录</a></li>
-          <li><a href="#">免费注册</a></li>
+          <li><router-link to="/login">请先登录</router-link></li>
+          <li><router-link to="/">免费注册</router-link></li>
         </template>
-        <li><a href="#">我的订单</a></li>
-        <li><a href="#">会员中心</a></li>
-        <li><a href="#">帮助中心</a></li>
-        <li><a href="#">关于我们</a></li>
+        <li><router-link to="/">我的订单</router-link></li>
+        <li><router-link to="/">会员中心</router-link></li>
+        <li><router-link to="/">帮助中心</router-link></li>
+        <li><router-link to="/">关于我们</router-link></li>
         <li>
-          <a href="#"><i class="iconfont icon-phone" />手机版</a>
+          <router-link to="/"
+            ><i class="iconfont icon-phone" />手机版</router-link
+          >
         </li>
       </ul>
     </div>
@@ -39,7 +44,12 @@ export default {
       return store.state.user.profile
     })
 
-    return { profile }
+    // 退出登录
+    const logout = () => {
+      store.commit('user/setUser', {})
+    }
+
+    return { profile, logout }
   }
 
 }

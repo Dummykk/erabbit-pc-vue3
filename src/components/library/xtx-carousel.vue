@@ -1,5 +1,10 @@
 <template>
-  <div class="xtx-carousel" @mouseenter="stop" @mouseleave="start">
+  <div
+    class="xtx-carousel"
+    :class="{ 'relevant-carousel': isRelevant }"
+    @mouseenter="stop"
+    @mouseleave="start"
+  >
     <ul class="carousel-body">
       <li
         class="carousel-item"
@@ -7,9 +12,20 @@
         :key="i"
         :class="{ show: index === i }"
       >
-        <router-link :to="item.hrefUrl">
+        <router-link v-if="!isRelevant" :to="item.hrefUrl">
           <img :src="item.imgUrl" />
         </router-link>
+        <div v-else class="relevant">
+          <router-link
+            v-for="good in item"
+            :key="good.id"
+            :to="`/product/${good.id}`"
+          >
+            <img :src="good.picture" />
+            <p class="name ellipsis">{{ good.name }}</p>
+            <p class="price">&yen;{{ good.price }}</p>
+          </router-link>
+        </div>
       </li>
     </ul>
     <a href="javascript:;" class="carousel-btn prev" @click="toggle(0)"
@@ -46,6 +62,10 @@ export default {
     duration: {
       type: Number,
       default: 3000
+    },
+    isRelevant: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -68,7 +88,7 @@ export default {
       if (newValue.length && props.autoPlay) {
         autoPlayFn()
       }
-    }, { immediate: true })
+    }, { immediate: true, deep: true })
 
     // 鼠标进入暂停自动播放，离开开启自动播放
     const stop = () => {
@@ -85,7 +105,7 @@ export default {
     const toggle = (type) => {
       if (type === 0) {
         index.value--
-        index.value = (index.value + 5) % props.sliders.length
+        index.value = (index.value + props.sliders.length) % props.sliders.length
       } else if (type === 1) {
         index.value++
         index.value %= props.sliders.length
@@ -129,6 +149,30 @@ export default {
       img {
         width: 100%;
         height: 100%;
+      }
+      .relevant {
+        display: flex;
+        justify-content: space-around;
+        padding: 0 40px;
+        > a {
+          width: 240px;
+          text-align: center;
+          img {
+            padding: 20px;
+            width: 230px;
+            height: 230px;
+          }
+          .name {
+            padding: 0 40px;
+            font-size: 16px;
+            color: #666;
+          }
+          .price {
+            margin-top: 15px;
+            font-size: 16px;
+            color: @priceColor;
+          }
+        }
       }
     }
     &-btn {
@@ -175,6 +219,28 @@ export default {
   &:hover {
     .carousel-btn {
       opacity: 1;
+    }
+  }
+}
+.relevant-carousel {
+  height: 380px;
+  .carousel {
+    &-btn {
+      top: 110px;
+      opacity: 1;
+      background-color: #fff;
+      color: #ddd;
+      i {
+        font-size: 30px;
+      }
+    }
+    &-indicator {
+      bottom: 30px;
+      span {
+        &.active {
+          background-color: @xtxColor;
+        }
+      }
     }
   }
 }

@@ -16,8 +16,20 @@ const routes = [
       {
         path: '/category/sub/:id',
         component: () => import('@/views/category/sub-category')
+      },
+      {
+        path: '/product/:id',
+        component: () => import('@/views/goods')
       }
     ]
+  },
+  {
+    path: '/login',
+    component: () => import('@/views/login')
+  },
+  {
+    path: '/login/callback',
+    component: () => import('@/views/login/login-callback')
   }
 ]
 
