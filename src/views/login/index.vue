@@ -51,7 +51,6 @@ export default {
     // 记录跳转登录地址栏通过redirectUrl传递的参数
     const store = useStore()
     const route = useRoute()
-    console.log(route.query.redirectUrl)
     store.commit('user/setRedirectUrl', route.query.redirectUrl || '/')
 
     return { activeName }

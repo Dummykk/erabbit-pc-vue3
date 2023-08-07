@@ -79,6 +79,7 @@ export default {
           specsText: sku.specs.reduce((p, n) => `${p} ${n.name}：${n.valueName}`, '')
         })
       } else {
+        // 规格选择不完整，传递{}
         emit('change', {})
       }
     }

@@ -93,6 +93,7 @@ export default {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-repeat: no-repeat;
     background-size: 800px 800px;
+    background-color: #fff;
   }
   .middle {
     position: relative;

@@ -42,6 +42,7 @@ export default {
         return
       }
       num.value = newValue
+      emit('changeNum', newValue)
     }
 
     return { num, changeNum }

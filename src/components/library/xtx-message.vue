@@ -49,7 +49,7 @@ export default {
       }
     }
 
-    // 控制消息框显示隐藏
+    // 控制消息框显示隐藏 动画
     const visible = ref(false)
     onMounted(() => {
       visible.value = true
@@ -78,9 +78,9 @@ export default {
 }
 
 .xtx-message {
-  position: absolute;
+  position: fixed;
   left: 50%;
-  top: 25px;
+  top: 100px;
   margin-left: -150px;
   width: 300px;
   height: 50px;

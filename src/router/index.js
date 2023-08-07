@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import store from '@/store'
 
 const routes = [
   {
@@ -20,6 +21,10 @@ const routes = [
       {
         path: '/product/:id',
         component: () => import('@/views/goods')
+      },
+      {
+        path: '/cart',
+        component: () => import('@/views/cart')
       }
     ]
   },
@@ -39,6 +44,20 @@ const router = createRouter({
   scrollBehavior () {
     return { left: 0, top: 0 }
   }
+})
+
+// 前置导航守卫
+router.beforeEach((to, from, next) => {
+  // 用户信息
+  const { token } = store.state.user.profile
+  // 跳转到/member开头的地址时检查是否登录
+  if (to.path.startsWith('/member') && !token) {
+    next({
+      path: '/login',
+      query: { redirectUrl: to.fullPath }
+    })
+  }
+  next()
 })
 
 export default router

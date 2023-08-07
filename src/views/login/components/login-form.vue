@@ -23,7 +23,7 @@
               v-model="form.account"
               name="account"
               type="text"
-              placeholder="请输入用户名或手机号"
+              placeholder="请输入用户名"
             />
           </div>
           <div class="error-text" v-if="errors.account">
@@ -201,10 +201,13 @@ export default {
           // 1. 存储用户信息
           const { id, account, nickname, avatar, token, mobile } = data.result
           store.commit('user/setUser', { id, avatar, nickname, account, mobile, token })
-          // 2. 消息提示
-          Message({ type: 'success', text: '登录成功！' })
-          // 3. 跳转
-          router.push(route.query.redirectUrl || '/')
+          // 2. 合并购物车
+          store.dispatch('cart/mergeLocalCart').then(() => {
+            // 3. 消息提示
+            Message({ type: 'success', text: '登录成功！' })
+            // 4. 跳转
+            router.push(route.query.redirectUrl || '/')
+          })
         } catch (e) {
           // 失败
           Message({ type: 'error', text: e.response.data.message || '登录失败！' })

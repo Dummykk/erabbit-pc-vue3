@@ -20,3 +20,7 @@ export const getCommentsByGoods = (id) => {
 export const getCommentsListByGoods = (id, reqParams) => {
   return request(`https://mock.boxuegu.com/mock/1175/goods/${id}/evaluate/page`, 'GET', { reqParams })
 }
+
+export const getSpecsBySkuId = (skuId) => {
+  return request(`/goods/sku/${skuId}`, 'GET')
+}

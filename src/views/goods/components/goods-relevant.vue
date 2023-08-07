@@ -2,7 +2,7 @@
   <div class="goods-relevant">
     <div class="header">
       <i class="icon" />
-      <span class="title">同类商品推荐</span>
+      <span class="title"><slot>同类商品推荐</slot></span>
     </div>
     <!-- 使用改造后的xtx-carousel组件 -->
     <xtx-carousel :sliders="sliders" isRelevant autoPlay />
@@ -17,8 +17,7 @@ export default {
 
   props: {
     goodsId: {
-      type: String,
-      required: true
+      type: String
     }
   },
 

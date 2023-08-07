@@ -4,19 +4,13 @@
       <!-- 面包屑 -->
       <xtx-bread>
         <xtx-bread-item to="/">首页</xtx-bread-item>
-        <xtx-bread-item
-          v-if="goodsInfo"
-          :to="`/category/${goodsInfo.categories[1].id}`"
-        >
+        <xtx-bread-item :to="`/category/${goodsInfo.categories[1].id}`">
           {{ goodsInfo.categories[1].name }}
         </xtx-bread-item>
-        <xtx-bread-item
-          v-if="goodsInfo"
-          :to="`/category/sub/${goodsInfo.categories[0].id}`"
-        >
+        <xtx-bread-item :to="`/category/sub/${goodsInfo.categories[0].id}`">
           {{ goodsInfo.categories[0].name }}
         </xtx-bread-item>
-        <xtx-bread-item v-if="goodsInfo">{{ goodsInfo.name }}</xtx-bread-item>
+        <xtx-bread-item>{{ goodsInfo.name }}</xtx-bread-item>
       </xtx-bread>
       <!-- 商品信息 -->
       <div class="goods-info">
@@ -28,11 +22,16 @@
           <goods-name :goods="goodsInfo" />
           <goods-sku :goods="goodsInfo" @change="changeSku" />
           <xtx-numbox label="数量" v-model="num" />
-          <xtx-button type="primary" style="margin-top: 20px"
-            >加入购物车</xtx-button
+          <xtx-button
+            type="primary"
+            style="margin-top: 20px"
+            @click="addToCart"
           >
+            加入购物车
+          </xtx-button>
         </div>
       </div>
+
       <!-- 相关商品推荐 -->
       <goods-relevant :goodsId="goodsInfo.id" />
       <!-- 商品详情 热榜 -->
@@ -51,13 +50,14 @@
         </div>
         <!-- 热榜 -->
         <div class="hot-list">
-          <goods-hot type="1" :goodsId="goodsInfo.id" />
-          <goods-hot type="2" :goodsId="goodsInfo.id" />
+          <goods-hot :type="1" :goodsId="goodsInfo.id" />
+          <goods-hot :type="2" :goodsId="goodsInfo.id" />
         </div>
         <!-- 热榜 -->
       </div>
     </div>
   </div>
+  <div v-else class="loading container"></div>
 </template>
 
 <script>
@@ -72,6 +72,8 @@ import GoodsSku from './components/goods-sku.vue'
 import GoodsTabs from './components/goods-tabs.vue'
 import GoodsHot from './components/goods-hot.vue'
 import GoodsTips from './components/goods-tips.vue'
+import Message from '@/components/library/Message'
+import { useStore } from 'vuex'
 
 export default {
   name: 'GoodsPage',
@@ -99,11 +101,40 @@ export default {
         goodsInfo.value.oldPrice = sku.oldPrice
         goodsInfo.value.inventory = sku.inventory
       }
+      currentSku.value = sku
     }
 
+    // 默认选择数量
     const num = ref(1)
 
-    return { goodsInfo, changeSku, num }
+    // 加入购物车
+    const store = useStore()
+    const currentSku = ref(null)
+    const addToCart = () => {
+      if (currentSku.value && currentSku.value.skuId) {
+        const { skuId, specsText: attrsText, inventory: stock } = currentSku.value
+        const { id, name, price, mainPictures } = goodsInfo.value
+        store.dispatch('cart/addToCart', {
+          id,
+          skuId,
+          name,
+          picture: mainPictures[0],
+          price,
+          nowPrice: price,
+          attrsText,
+          stock,
+          selected: true,
+          count: num.value,
+          isEffective: true
+        }).then(() => {
+          Message({ type: 'success', text: '加入购物车成功' })
+        })
+      } else {
+        Message({ type: 'warn', text: '请选择完整的商品规格' })
+      }
+    }
+
+    return { goodsInfo, changeSku, num, addToCart }
   }
 }
 
@@ -113,12 +144,16 @@ const getGoodsInfo = () => {
 
   watch(() => route.params.id, (newVal) => {
     if (newVal && route.path === `/product/${newVal}`) {
-      getGoodsDetail(route.params.id).then(data => {
-        goodsInfo.value = null
-        nextTick(() => {
-          goodsInfo.value = data.result
+      getGoodsDetail(route.params.id)
+        .then(data => {
+          goodsInfo.value = null
+          nextTick(() => {
+            goodsInfo.value = data.result
+          })
         })
-      })
+        .catch(e => {
+          Message({ type: 'error', text: e.response.data.message || '获取商品信息失败' })
+        })
     }
   }, { immediate: true })
   return goodsInfo
@@ -139,6 +174,12 @@ const getGoodsInfo = () => {
     flex: 1;
     padding: 30px 30px 30px 0;
   }
+}
+.loading {
+  margin-top: 72px;
+  height: 600px;
+  background: #fff url(~@/assets/images/loading.gif) no-repeat center / 100px
+    100px;
 }
 .goods-footer {
   display: flex;

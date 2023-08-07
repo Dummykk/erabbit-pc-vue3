@@ -47,6 +47,8 @@ export default {
     // 退出登录
     const logout = () => {
       store.commit('user/setUser', {})
+      // 清空本地购物车
+      store.commit('cart/setCartList', [])
     }
 
     return { profile, logout }
