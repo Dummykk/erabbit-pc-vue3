@@ -32,8 +32,8 @@
       >
         <div class="head">
           <h3>- {{ subCategory.name }} -</h3>
-          <p>温暖柔软，品质只选</p>
-          <xtx-more />
+          <p>正品保障，品质之选</p>
+          <xtx-more :to="`/category/sub/${subCategory.id}`" />
         </div>
         <ul class="body">
           <li v-for="item in subCategory.goods" :key="item">

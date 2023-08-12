@@ -5,11 +5,11 @@
         <transition name="fade">
           <ul v-if="goods.length" class="goods-list">
             <li v-for="item in goods" :key="item.id">
-              <router-link to="javascript:;">
+              <a href="javascript:;">
                 <img v-lazy="item.picture" />
                 <p class="title">{{ item.title }}</p>
                 <p class="desc">{{ item.alt }}</p>
-              </router-link>
+              </a>
             </li>
           </ul>
           <home-skeleton v-else />

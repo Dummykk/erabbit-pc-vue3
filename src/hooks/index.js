@@ -1,5 +1,6 @@
-import { ref } from 'vue'
-import { useIntersectionObserver } from '@vueuse/core'
+import { onUnmounted, ref } from 'vue'
+import { useIntersectionObserver, useIntervalFn } from '@vueuse/core'
+import dayjs from 'dayjs'
 
 /**
  * 节流函数
@@ -42,4 +43,33 @@ export const useLazyData = (target, apiFn) => {
     }
   )
   return result
+}
+
+/**
+ * 支付倒计时函数
+ */
+export const useCountdown = () => {
+  // 倒计时逻辑
+  const time = ref(0)
+  const timeText = ref('')
+  const { pause, resume } = useIntervalFn(() => {
+    time.value--
+    timeText.value = dayjs.unix(time.value).format('mm分ss秒')
+    if (time.value <= 0) {
+      pause()
+    }
+  }, 1000, false)
+
+  onUnmounted(() => {
+    pause()
+  })
+
+  // 开启定时器
+  const start = (t) => {
+    time.value = t
+    timeText.value = dayjs.unix(time.value).format('mm分ss秒')
+    resume()
+  }
+
+  return { start, timeText }
 }

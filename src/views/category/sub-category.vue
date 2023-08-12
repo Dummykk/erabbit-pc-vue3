@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import GoodsItem from './components/goods-item.vue'
 import subBread from './components/sub-bread.vue'
 import SubFilter from './components/sub-filter.vue'
@@ -55,7 +55,6 @@ export default {
       getSubCategoryGoods(reqParams).then(data => {
         if (data.result.items.length) {
           goodsList.value.push(...data.result.items)
-          if (reqParams.page === 1) { goodsList.value.shift() }
           reqParams.page++
         } else {
           // 加载完毕
@@ -66,20 +65,33 @@ export default {
       })
     }
 
+    watch(() => route.params.id, (newVal) => {
+      if (newVal && `/category/sub/${newVal}` === route.path) {
+        finished.value = false
+        goodsList.value = [] // 导致列表空的，加载更多组件顶上来，进入可视区，区加载数据
+        reqParams = {
+          page: 1,
+          pageSize: 20
+        }
+      }
+    })
+
     // 筛选区改变
     const changeFilter = (filterParams) => {
+      finished.value = false
       reqParams = { ...reqParams, ...filterParams }
       reqParams.page = 1
       goodsList.value = []
-      finished.value = false
+      getData()
     }
 
     // 排序改变
     const changeSort = (sortParams) => {
+      finished.value = false
       reqParams = { ...reqParams, ...sortParams }
       reqParams.page = 1
       goodsList.value = []
-      finished.value = false
+      getData()
     }
 
     return { loading, finished, goodsList, getData, changeFilter, changeSort }

@@ -1,7 +1,9 @@
 <template>
   <div ref="target" class="xtx-city">
     <div class="select" :class="{ active: visible }" @click="toggleDialog">
-      <span v-if="!fullLocation" class="placeholder">{{ placeholder }}</span>
+      <span v-if="!fullLocation" class="placeholder">
+        {{ placeholder }}
+      </span>
       <span v-else class="value">{{ fullLocation }}</span>
       <i class="iconfont icon-angle-down" />
     </div>

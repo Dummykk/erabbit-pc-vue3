@@ -57,7 +57,7 @@
               <a href="#">搜索推荐</a>
               <a href="#">友情链接</a>
             </p>
-            <p>Copyright © 小兔鲜</p>
+            <p>Copyright © 优乐购</p>
           </div>
         </div>
       </div>

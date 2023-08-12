@@ -43,6 +43,7 @@
 
 <script>
 import { useStore } from 'vuex'
+import Confirm from './library/Confirm'
 import Message from './library/Message'
 export default {
   name: 'AppHeaderCart',
@@ -54,13 +55,17 @@ export default {
 
     // 删除购物车商品
     const deleteGoods = (skuId) => {
-      store.dispatch('cart/deleteGoods', skuId)
+      Confirm({ text: '您确定从购物车中删除该商品吗？' })
         .then(() => {
-          Message({ type: 'success', text: '删除成功' })
+          store.dispatch('cart/deleteGoods', skuId)
+            .then(() => {
+              Message({ type: 'success', text: '删除成功' })
+            })
+            .catch(e => {
+              Message({ type: 'error', text: '删除失败' })
+            })
         })
-        .catch(e => {
-          Message({ type: 'error', text: '删除失败' })
-        })
+        .catch(e => {})
     }
 
     return { deleteGoods }
@@ -162,37 +167,44 @@ export default {
             cursor: pointer;
           }
         }
-      }
-      a {
-        display: flex;
-        align-items: center;
-        img {
-          width: 80px;
-          height: 80px;
+        a {
+          display: flex;
+          align-items: center;
+          img {
+            width: 80px;
+            height: 80px;
+          }
+          .center {
+            padding: 0 10px;
+            width: 200px;
+            .name {
+              font-size: 16px;
+            }
+            .attr {
+              color: #999;
+              padding-top: 5px;
+            }
+          }
+          .right {
+            width: 100px;
+            padding-right: 20px;
+            text-align: center;
+            .price {
+              font-size: 16px;
+              color: @priceColor;
+            }
+            .count {
+              margin-top: 5px;
+              font-size: 16px;
+              color: #999;
+            }
+          }
         }
-        .center {
-          padding: 0 10px;
-          width: 200px;
-          .name {
-            font-size: 16px;
-          }
-          .attr {
-            color: #999;
-            padding-top: 5px;
-          }
-        }
-        .right {
-          width: 100px;
-          padding-right: 20px;
-          text-align: center;
-          .price {
-            font-size: 16px;
-            color: @priceColor;
-          }
-          .count {
-            margin-top: 5px;
-            font-size: 16px;
-            color: #999;
+        .iconfont {
+          transition: all 0.4s;
+          &:hover {
+            color: @helpColor;
+            transform: scale(1.2);
           }
         }
       }

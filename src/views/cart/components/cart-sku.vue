@@ -53,7 +53,6 @@ export default {
       getSpecsBySkuId(props.skuId).then(data => {
         goods.value = data.result
         loading.value = false
-        console.log(goods.value)
       })
     }
     const close = () => {

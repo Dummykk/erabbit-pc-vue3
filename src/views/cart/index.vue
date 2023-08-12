@@ -235,7 +235,9 @@ export default {
 
     // 修改规格
     const changeSku = (oldSkuId, newSku) => {
-      store.dispatch('cart/changeGoodsSku', { oldSkuId, newSku }).catch(e => { Message({ type: 'error', text: e.message }) })
+      store.dispatch('cart/changeGoodsSku', { oldSkuId, newSku })
+        .then(() => { Message({ type: 'success', text: '修改规格成功' }) })
+        .catch(e => { Message({ type: 'error', text: e.message }) })
     }
 
     // 下单结算
@@ -325,8 +327,6 @@ export default {
         width: 280px;
         color: #666;
         font-size: 16px;
-        name {
-        }
         .attr {
           font-size: 14px;
           color: #999;

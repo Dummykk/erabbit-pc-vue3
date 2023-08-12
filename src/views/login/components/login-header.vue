@@ -34,7 +34,7 @@ export default {
         display: block;
         height: 132px;
         width: 100%;
-        background: url(~@/assets/images/logo.png) no-repeat center 18px /
+        background: url(~@/assets/images/logo.png) no-repeat center 40px /
           contain;
       }
     }

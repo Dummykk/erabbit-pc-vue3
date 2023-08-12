@@ -37,8 +37,9 @@
             <Field
               v-model="form.password"
               name="password"
-              type="text"
+              type="password"
               placeholder="请输入密码"
+              @keydown.enter="login"
             />
           </div>
           <div v-if="errors.password" class="error-text">
@@ -71,6 +72,7 @@
               name="code"
               type="text"
               placeholder="请输入验证码"
+              @keydown.enter="login"
             />
             <span class="send-code" @click="sendCode">
               {{ time === 0 ? '发送验证码' : `${time}s后重试` }}
@@ -106,8 +108,7 @@
           <img src="@/assets/images/connect_logo.png" />
         </a>
         <div class="url">
-          <a href="javascript:;">忘记密码</a>
-          <a href="javascript:;">免费注册</a>
+          <a href="javascript:;" @click="$router.push('/register')">免费注册</a>
         </div>
       </div>
     </Form>
@@ -136,8 +137,8 @@ export default {
     // 表单信息对象
     const form = reactive({
       isAgree: true,
-      account: null,
-      password: null,
+      account: 'Gloria',
+      password: '123456',
       mobile: null,
       code: null
     })
@@ -272,7 +273,6 @@ export default {
       .input {
         display: flex;
         height: 36px;
-        z-index: 2;
         border: 1px solid #cfcdcd;
         > i {
           width: 34px;
@@ -335,7 +335,7 @@ export default {
       width: 100%;
       height: 40px;
       color: #fff;
-      background: linear-gradient(330deg, #2eedaad1, #27ba9b);
+      background: linear-gradient(330deg, #47bcdac7, #139ec1);
       text-align: center;
       line-height: 40px;
       font-size: 16px;

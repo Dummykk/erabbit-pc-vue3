@@ -8,7 +8,7 @@
       @mouseleave="hide(item)"
     >
       <router-link
-        :class="{ active: $route.params.id === item.id }"
+        :class="{ active: $route.params.id && $route.params.id === item.id }"
         :to="`/category/${item.id}`"
         @click="hide(item), (currentIndex = index)"
         >{{ item.name }}</router-link

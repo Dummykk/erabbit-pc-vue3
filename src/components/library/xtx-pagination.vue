@@ -66,7 +66,7 @@ export default {
       myPagesize.value = props.pagesize
       myCurrentPage.value = props.currentPage
       myBtnCount = props.btnCount
-    })
+    }, { immediate: true })
 
     // 根据上述数据计算得到：总页数、起始页码、结束页码、按钮数组
     const pager = computed(() => {

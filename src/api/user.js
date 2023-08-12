@@ -10,7 +10,7 @@ export const loginByMsgCode = ({ mobile, code }) => {
   return request('/login/code', 'POST', { mobile, code })
 }
 
-// 获取短信验证码
+// 获取短信验证码-登录
 export const getMsgCode = (mobile) => {
   return request('/login/code', 'GET', { mobile })
 }
@@ -43,4 +43,14 @@ export const getQQPatchCode = (mobile) => {
 // 完善资料
 export const complementProfile = ({ unionId, mobile, code, account, password }) => {
   return request(`/login/social/${unionId}/complement`, 'POST', { unionId, mobile, code, account, password })
+}
+
+// 手机号+密码注册
+export const registerByMobile = (params) => {
+  return request('/register', 'POST', params)
+}
+
+// 获取短信验证码-注册
+export const getMsgCodeForRegister = (mobile) => {
+  return request('/register/code', 'GET', { mobile })
 }

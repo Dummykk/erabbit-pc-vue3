@@ -45,7 +45,7 @@
         "
       >
         <li v-for="item in currentCategory.goods" :key="item.id">
-          <router-link to="/">
+          <router-link :to="`/product/${item.id}`">
             <img v-lazy="item.picture" />
             <div class="info">
               <p class="name ellipsis-2">

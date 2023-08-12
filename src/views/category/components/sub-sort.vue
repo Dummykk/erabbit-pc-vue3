@@ -81,7 +81,7 @@ export default {
       emit('sort-change', sortParams)
     }
 
-    const changeCheck = (sortParams) => {
+    const changeCheck = () => {
       emit('sort-change', sortParams)
     }
     return { sortParams, changeSort, changeCheck }

@@ -13,7 +13,7 @@
         @click="hasAccount = true"
       >
         <i class="iconfont icon-bind" />
-        <span>已有小兔鲜账号，绑定账号</span>
+        <span>已有优乐购账号，绑定账号</span>
       </a>
       <a
         href="javascript:;"
@@ -21,7 +21,7 @@
         @click="hasAccount = false"
       >
         <i class="iconfont icon-edit" />
-        <span>没有小兔鲜账号，注册账号并绑定</span>
+        <span>没有优乐购账号，注册账号并绑定</span>
       </a>
     </nav>
     <div v-if="hasAccount" class="tab-content">

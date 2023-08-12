@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import store from '@/store'
+import { h } from 'vue'
 
 const routes = [
   {
@@ -25,6 +26,38 @@ const routes = [
       {
         path: '/cart',
         component: () => import('@/views/cart')
+      },
+      {
+        path: '/member/checkout',
+        component: () => import('@/views/member/pay/pay-checkout-page')
+      },
+      {
+        path: '/member/pay',
+        component: () => import('@/views/member/pay')
+      },
+      {
+        path: '/member',
+        component: () => import('@/views/member/Layout'),
+        children: [
+          {
+            path: '',
+            component: () => import('@/views/member/home')
+          },
+          {
+            path: '/member/order',
+            component: { render: () => h(<router-view/>) },
+            children: [
+              {
+                path: '',
+                component: () => import('@/views/member/order')
+              },
+              {
+                path: ':id',
+                component: () => import('@/views/member/order/detail-page')
+              }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -35,6 +68,10 @@ const routes = [
   {
     path: '/login/callback',
     component: () => import('@/views/login/login-callback')
+  },
+  {
+    path: '/register',
+    component: () => import('@/views/login/register-page')
   }
 ]
 
@@ -50,12 +87,9 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   // 用户信息
   const { token } = store.state.user.profile
-  // 跳转到/member开头的地址时检查是否登录
+  // 权限控制-跳转到/member开头的地址时检查是否登录
   if (to.path.startsWith('/member') && !token) {
-    next({
-      path: '/login',
-      query: { redirectUrl: to.fullPath }
-    })
+    return next('/login?redirectUrl=' + encodeURIComponent(to.fullPath))
   }
   next()
 })

@@ -184,7 +184,7 @@ export default {
           const oldGoods = context.state.list.find(item => item.skuId === oldSkuId)
           deleteGoods([oldSkuId])
             .then(() => {
-              return addToCart({ skuId: newSku, count: oldGoods.count })
+              return addToCart({ skuId: newSku.skuId, count: oldGoods.count })
             })
             .then(() => {
               return getCartList()
