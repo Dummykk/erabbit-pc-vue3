@@ -6,7 +6,8 @@
       <!-- 未付款，倒计时时间还有 -->
       <span class="down-time" v-if="order.orderState === 1">
         <i class="iconfont icon-down-time"></i>
-        <b>付款截止：{{ timeText }}</b>
+        <b v-if="order.countdown > -1">付款截止：{{ timeText }}</b>
+        <b v-else>订单已超时</b>
       </span>
       <!-- 已完成 已取消 -->
       <a
