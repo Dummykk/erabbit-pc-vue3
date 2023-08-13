@@ -2,7 +2,7 @@
   <div class="home-category" @mouseleave="categoryId = null">
     <ul class="menu">
       <li
-        :class="{ active: categoryId === item.id }"
+        :class="{ active: categoryId && categoryId === item.id }"
         v-for="item in menuList"
         :key="item.id"
         @mouseenter="categoryId = item.id"
@@ -193,7 +193,7 @@ export default {
           width: 100%;
           height: 100%;
           &:hover {
-            background-color: #e3f9f4;
+            background-color: rgba(75, 129, 218, 0.18);
           }
           img {
             width: 95px;

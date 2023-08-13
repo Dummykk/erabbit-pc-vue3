@@ -334,7 +334,11 @@ export default {
       width: 100%;
       height: 40px;
       color: #fff;
-      background: linear-gradient(330deg, #47bcdac7, #139ec1);
+      background: linear-gradient(
+        330deg,
+        rgb(60, 118, 211),
+        rgba(140, 170, 222, 0.827)
+      );
       text-align: center;
       line-height: 40px;
       font-size: 16px;

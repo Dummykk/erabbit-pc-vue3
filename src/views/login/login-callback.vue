@@ -101,8 +101,8 @@ export default {
     z-index: 99;
     .loading {
       height: 100%;
-      background: #fff url(~@/assets/images/load.gif) no-repeat center / 100px
-        100px;
+      background: #fff url(~@/assets/images/loading.gif) no-repeat center /
+        200px 356px;
     }
   }
   .tab {

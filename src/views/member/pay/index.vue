@@ -153,6 +153,7 @@ export default {
 .loading {
   width: 100%;
   height: 500px;
-  background: url(~@/assets/images/loading.gif) no-repeat center / 100px 100px;
+  background: #fff url(~@/assets/images/loading.gif) no-repeat center / 200px
+    356px;
 }
 </style>

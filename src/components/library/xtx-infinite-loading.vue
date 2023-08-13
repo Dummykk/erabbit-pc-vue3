@@ -57,9 +57,10 @@ export default {
     justify-content: center;
     height: 200px;
     .img {
-      width: 50px;
-      height: 50px;
-      background: url(~@/assets/images/load.gif) no-repeat center / contain;
+      width: 100px;
+      height: 178px;
+      background: url(~@/assets/images/loading.gif) no-repeat center / 100px
+        178px;
     }
     .text {
       color: #999;

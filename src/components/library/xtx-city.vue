@@ -200,7 +200,8 @@ const getCityData = () => {
     .loading {
       height: 290px;
       width: 100%;
-      background: url(~@/assets/images/loading.gif) no-repeat center;
+      background: url(~@/assets/images/loading.gif) no-repeat center / 100px
+        178px;
     }
   }
 }

@@ -178,8 +178,8 @@ const getGoodsInfo = () => {
 .loading {
   margin-top: 72px;
   height: 600px;
-  background: #fff url(~@/assets/images/loading.gif) no-repeat center / 100px
-    100px;
+  background: #fff url(~@/assets/images/loading.gif) no-repeat center / 200px
+    356px;
 }
 .goods-footer {
   display: flex;

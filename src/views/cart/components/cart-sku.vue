@@ -132,7 +132,8 @@ export default {
     }
     .loading {
       height: 224px;
-      background: url(~@/assets/images/loading.gif) no-repeat center;
+      background: url(~@/assets/images/loading.gif) no-repeat center / 100px
+        178px;
     }
     .btn {
       display: flex;
