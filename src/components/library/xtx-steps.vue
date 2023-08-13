@@ -1,5 +1,5 @@
 <script lang='jsx'>
-import { getCurrentInstance } from 'vue'
+// import { getCurrentInstance } from 'vue'
 export default {
   name: 'XtxSteps',
 
@@ -11,8 +11,8 @@ export default {
   },
 
   render () {
-    const { ctx } = getCurrentInstance()
-    const items = ctx.$slots.default()
+    // const { ctx } = getCurrentInstance()
+    const items = this.$slots.default()
     const dynamicItems = []
     items.forEach(item => {
       if (item.type.name === 'XtxStepsItem') {

@@ -17,7 +17,7 @@
       </div>
       <h4>交易管理</h4>
       <div class="links">
-        <router-link to="/member/order" exact-active-class="active">
+        <router-link to="/member/order" active-class="active">
           我的订单
         </router-link>
         <a href="javascript:;">优惠券</a>
