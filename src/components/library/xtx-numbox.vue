@@ -70,7 +70,7 @@ export default {
       line-height: 28px;
       text-align: center;
       background-color: #f8f8f8;
-      font-size: 1px;
+      font-size: 18px;
       color: #666;
       &:first-child {
         border-right: 1px solid #e4e4e4;

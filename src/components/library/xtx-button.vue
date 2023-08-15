@@ -31,6 +31,9 @@ export default {
   border: 1px solid transparent;
   border-radius: 4px;
   cursor: pointer;
+  &:active {
+    opacity: 0.8;
+  }
 }
 .large {
   width: 240px;
